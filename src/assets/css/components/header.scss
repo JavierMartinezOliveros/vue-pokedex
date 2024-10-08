@@ -1,0 +1,28 @@
+header {
+  padding: 12px;
+
+  .logo {
+    padding: 5px 0;
+  }
+}
+
+.pokedex-header {
+  align-items: center;
+  display: flex;
+  line-height: 0;
+  padding: 0 0 12px 0;
+  position: relative;
+  
+  h1 {
+    margin: 0 0 0 16px;
+  }
+  
+  a {
+    color: $white;
+  }
+
+  &-number {
+    position: absolute;
+    right: 10px;
+  }
+}
