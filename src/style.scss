@@ -44,3 +44,13 @@ h1 {
   width: 100%;
 }
 
+button {
+  border: none;
+  display: inline-block;
+  line-height: 0;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  background: transparent;
+  cursor: pointer;
+}

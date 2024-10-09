@@ -38,8 +38,15 @@
           </div>
         </div>
 
-        <div className='detail-description'>
-          {{ description }}
+        <div class='detail-stats'>
+          <h2>Base Stats</h2>
+          <StatsBar 
+            v-for="(stat, index) in stats" 
+            :key="index"
+            :name="stat.name"
+            :value="stat.value" 
+            :maxValue="stat.maxValue" 
+          />
         </div>
 
       </div>
@@ -48,23 +55,29 @@
 </template>
 
 <script setup lang="ts">
-import { capitalizeFirstLetter } from '../composables/pokemonUtils';
-import Icon from './Icon.vue';
+  import { capitalizeFirstLetter } from '../composables/pokemonUtils';
+  import Icon from './Icon.vue';
+  import StatsBar from './StatsBar.vue';
 
-interface Props {
-  name: string;
-  image: string;
-  types: string[];
-  height: number;
-  weight: number;
-  moves: string[];
-  description: string;
-}
+  interface Stat {
+    name: string;
+    value: number;
+    maxValue: number;
+  }
 
-const props = withDefaults(defineProps<Props>(), {
-  name: '',
-  image: '',
-  description: ''
-});
+  interface Props {
+    name: string;
+    image: string;
+    types: string[];
+    height: number;
+    weight: number;
+    moves: string[];
+    stats: Stat[];
+  }
+
+  withDefaults(defineProps<Props>(), {
+    name: '',
+    image: '',
+  });
 
 </script>

@@ -29,44 +29,12 @@ $white: #FFFFFF;
 @import "./components/header.scss";
 @import "./components/card.scss";
 @import "./components/card-detail.scss";
-@import "./components/field.scss";
+@import "./components/stats-bar.scss";
 
 .pokedex {
   background: $primary;
   margin: 0 auto;
   padding: 4px;
-
-  &-home {
-    background: $primary;
-  }
-
-/*   &-header {
-    display: flex;
-    padding: 0 0 12px 0;
-  } */
-
-/*   &-search {
-    display: flex;
-    width: 100%;
-
-    input[type=search] {
-      background: url('/public/search-icon.png') no-repeat $white;
-      background-position: 10px center;
-      border-radius: 16px;
-      box-shadow: inset 0px 1px 3px rgba(#000000, 0.75);
-      color: $graydark;
-      outline: none;
-      padding: 8px 12px 8px 24px;
-      position: relative;
-      width: 280px;
-      -webkit-appearance: none;
-
-      &:focus-within {
-        box-shadow: 2px 3px 5px 0 rgba(#000000, 0.25);
-        
-      }
-    }
-  } */
 
   &-content {
     background: $white;
@@ -78,6 +46,16 @@ $white: #FFFFFF;
     justify-content: space-between;
     min-height: 512px;
     padding: 24px 12px;
+  }
+
+  &-navigation {
+    display: flex;
+    justify-content: center;
+    margin: 5px 0;
+  
+    button {
+      padding: 0 4px;
+    }
   }
 
   &.grass {

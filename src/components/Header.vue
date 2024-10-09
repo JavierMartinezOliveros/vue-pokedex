@@ -37,7 +37,7 @@
     strokeWidth?: number;
     number?: number
   }
-  const props = withDefaults(defineProps<Props>(), {
+  withDefaults(defineProps<Props>(), {
     title: '',
     icon: '',
     size: 'md',

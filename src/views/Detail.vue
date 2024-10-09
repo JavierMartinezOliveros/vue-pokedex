@@ -14,23 +14,14 @@
     
     <CardDetail
       v-if="pokemon"
+      :name="pokemon.name"
       :image="getPokemonImageUrl(pokemon.id)"
       :types="pokemon.types.map(type => type.type.name)" 
       :weight="pokemon.weight"
       :height="pokemon.height"
       :moves="pokemon.abilities.map(ability => ability.ability.name)"
-      :description="flavortext"
-      
+      :stats="formatStats(pokemon.stats)"
     />
-    <div v-if="pokemon" class="pokemon-detail">
-
-      <h3>Stats</h3>
-      <ul>
-        <li v-for="stat in pokemon.stats" :key="stat.stat.name">
-          {{ capitalizeFirstLetter(stat.stat.name) }}: {{ stat.base_stat }}
-        </li>
-      </ul>
-    </div>
   </div>
 </template>
 
@@ -48,12 +39,32 @@ interface PokemonType {
   };
 }
 
+interface Ability {
+  ability: {
+    name: string;
+  };
+}
+
+interface Stat {
+  base_stat: number;
+  stat: {
+    name: string;
+  };
+}
+
+interface PokemonSpecies {
+  url: string;
+}
+
 interface Pokemon {
   id: number;
   name: string;
   height: number;
   weight: number;
   types: PokemonType[];
+  abilities: Ability[];
+  stats: Stat[];
+  species: PokemonSpecies;
 }
 
 export default defineComponent({
@@ -70,7 +81,7 @@ export default defineComponent({
 
     const route = useRoute();
 
-    const fetchPokemonDetail = async (id) => {
+    const fetchPokemonDetail = async (id: number) => {
       try {
         const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
         pokemon.value = response.data;
@@ -82,7 +93,8 @@ export default defineComponent({
         }
 
       } catch (err) {
-        error.value = 'Error fetching Pokémon details: ' + (err.message);
+        const errorMessage = (err as Error).message || 'Unknown error';
+        error.value = 'Error fetching Pokémon details: ' + errorMessage;
       } finally {
         loading.value = false;
       }
@@ -93,6 +105,24 @@ export default defineComponent({
     });
 
     const pokemonId = Number(route.params.id); 
+
+    const statAbbr: { [key: string]: string } = {
+      hp: 'hp',
+      attack: 'atk',
+      defense: 'def',
+      'special-attack': 'satk',
+      'special-defense': 'sdef',
+      speed: 'spd',
+    };
+
+    const formatStats = (stats: any[]) => {
+      const maxValue = 200;
+      return stats.map(stat => ({
+        name: statAbbr[stat.stat.name].toUpperCase(),
+        value: stat.base_stat,
+        maxValue
+      }));
+    };
 
     onMounted(() => {
       fetchPokemonDetail(pokemonId);
@@ -105,7 +135,7 @@ export default defineComponent({
       firstType,
       capitalizeFirstLetter, 
       getPokemonImageUrl,
-      flavorText
+      formatStats
     };
   }
 });

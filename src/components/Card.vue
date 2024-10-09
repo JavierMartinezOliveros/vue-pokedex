@@ -11,20 +11,20 @@
 </template>
 
 <script setup lang="ts">
-import { capitalizeFirstLetter, formattedNumber } from '../composables/pokemonUtils';
+  import { capitalizeFirstLetter, formattedNumber } from '../composables/pokemonUtils';
 
-interface Props {
-  name: string;
-  image: string;
-  number: number;
-  link: number
-}
+  interface Props {
+    name: string;
+    image: string;
+    number: number;
+    link: number
+  }
 
-const props = withDefaults(defineProps<Props>(), {
-  name: '',
-  image: '',
-  number: 0,
-  link: 0
-});
+  withDefaults(defineProps<Props>(), {
+    name: '',
+    image: '',
+    number: 0,
+    link: 0
+  });
 
 </script>
